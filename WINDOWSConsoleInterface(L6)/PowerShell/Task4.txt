@@ -1,0 +1,2 @@
+New-Item -Path 'C:\DRIVERS.txt' -ItemType File
+driverquery.exe /V | Sort-Object -Property "Модуль" -Descending > DRIVERS.txt

@@ -1,0 +1,11 @@
+mkdir C:\LAB6
+ver > C:\LAB6\versioninfo.txt
+systeminfo | findstr /C:"Полный объем физической памяти:" /C:"Доступная физическая память:" > C:/LAB6/memoryinfo.txt
+wmic diskdrive get description,name > C:/LAB6/diskinfo.txt
+
+mkdir C:\LAB6\TEST
+copy C:\LAB6\*.txt C:\LAB6\TEST
+cd C:\LAB6\TEST
+
+copy versioninfo.txt+memoryinfo.txt+diskinfo.txt allinfo.txt
+del versioninfo.txt memoryinfo.txt diskinfo.txt

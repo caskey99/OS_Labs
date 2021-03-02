@@ -1,0 +1,18 @@
+#!/bin/bash
+for pid in $(ps -A -o pid | tail -n +2)
+do
+PPid=$(grep -E -h -i -s "ppid:\s+.+" /proc/$pid/status | grep -o "[0-9]\+")
+Running_Time=$(grep -E -h -i -s "sum_exec_runtime.+:\s+.+" /proc/$pid/sched | awk '{print $3}')
+nr_switches=$(grep -E -h -i -s "nr_switches.+:\s+.+" /proc/$pid/sched | awk '{print $3}')
+if [ -z $PPid ]
+then
+    PPid=0
+fi
+if [ -z $Running_Time ] || [ -z $nr_switches ];
+then
+    ART=0
+else
+    ART=$(echo "scale=4; $Running_Time/$nr_switches" | bc)
+fi
+    echo "$pid $PPid $ART"
+done | sort -n -k 2 | awk '{print "ProcessID="$1 " : " "Parent_ProcessID="$2 " : " "Average_Running_Time="$3}' > AnsScr4.tmp

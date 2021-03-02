@@ -1,0 +1,45 @@
+#!/bin/bash
+LastBackupDate=$(ls ~ | grep -E "^Backup-" | sort -n | tail -1 | sed "s/Backup-//")
+LastBackup="$HOME/Backup-${LastBackupDate}"
+
+NowDate=$(date +"%Y-%m-%d")
+NowTimestamp=$(date -d "$NowDate" +"%s")
+LastBaskupTimesTamp=$(date -d "$LastBackupDate" +"%s")
+TimeDiff=$(echo "(${NowTimesTamp} - ${LastBackupTimesTamp}) / 60 / 60 / 24" | bc)
+Report=~/backup-report
+
+if [[ "$TimeDiff" -gt "7" ]] || [[ -z "$LastBackupDate" ]]
+   then
+       mkdir "$HOME/Backup-${NowDate}"
+       for item in $(ls ~/source)
+         do
+           cp "$HOME/source/$item" "$HOME/Backup-$NowDate"
+       done
+       Flist=$(ls ~/source | sed "s/^/\t/")
+       echo -e "Backup (${NowDate}) was created:\n${Flist}" >> $Report
+   else
+       Changes=""
+       for item in $(ls ~/source)
+         do
+           if [[ -f "$LastBackup/$item" ]]
+              then
+                  SrcSize=$(wc -c "$HOME/source/${item}" | awk '{print$1}')
+                  BakSize=$(wc -c "${LastBackup}/${item}" | awk '{print$1}')
+                  DiffSize=$(echo "${ScrSize} - ${BakSize}" | bc)
+                  if [[ $DiffSize != 0 ]]
+                     then
+                         mv "$LastBackup/$item" "$LastBackup/$item.$NowDate"
+                         cp "$HOME/source/$item" $LastBackup
+                         Changes="${Changes} File $item update."
+                     fi
+              else
+                  cp "$HOME/source/$item" $LastBackup
+                  Changes="${Changes}\n\tFile -$item copied."
+              fi
+       done
+   Changes=$(echo $Changes | sed 's/^\\n//')
+   if [[ ! -z "$Changes" ]]
+      then
+          echo -e "Backup (${LastBackupDate}) updated:\n${Changes}" >> $Report
+      fi
+   fi

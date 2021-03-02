@@ -1,0 +1,13 @@
+cd C:\LAB6
+net start > C:\LAB6\servlist.txt
+
+cd. > stopdns.bat
+sc queryex type=service state=all | find /i "dns"
+
+echo net stop Slooper >> C:\LAB6\stopdns.bat
+echo timeout /T 6 >> C:\LAB6\stopdns.bat
+echo net start > C:\LAB6\currservice.txt >> C:\LAB6\stopdns.bat
+call C:\LAB6\compserv.bat >> stopdns.bat
+echo net start Slooper >> C:\LAB6\stopdns.bat
+cd. > compserv.bat
+echo comp C:\LAB6\servlist.txt C:\LAB6\currservice.txt > C:\LAB6\compserv.bat

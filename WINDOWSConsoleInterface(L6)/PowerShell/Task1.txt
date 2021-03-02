@@ -1,0 +1,16 @@
+New-Item -Path 'C:\LAB6' -ItemType Directory
+cd LAB6
+Get-WmiObject -Class Win32_OperatingSystem | fl -Property Version, BuildNumber >> versioninfo.txt
+Get-ComputerInfo  -Property *mem*
+"занятая память в % : " > memoryinfo.txt
+(Get-Counter "\память\% использования выделенной памяти").CounterSamples[0].CookedValue >> memoryinfo.txt
+"свободная память в % : " >> memoryinfo.txt
+100 - (Get-Counter "\память\% использования выделенной памяти").CounterSamples[0].CookedValue >> memoryinfo.txt
+Get-PhysicalDisk > diskinfo.txt
+
+New-Item -Path 'C:\LAB6\TEST' -ItemType Directory
+Copy-Item -Path "C:\LAB6\*.txt" -Destination "C:\LAB6\TEST\" -Recurse
+cd TEST
+
+Get-ChildItem -Filter *.txt | Get-Content | Out-File allinfo.txt
+Remove-Item -Path "C:\LAB6\TEST\memoryinfo.txt", "C:\LAB6\TEST\diskinfo.txt", "C:\LAB6\TEST\versioninfo.txt"

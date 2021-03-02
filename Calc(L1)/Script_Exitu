@@ -1,0 +1,11 @@
+#!/bin/bash
+function exit_func () {
+if [ -n $1 ] && [ $1 -eq $1 ] 2> /dev/null
+then if [ -z "$1" ]
+then echo "0"
+else echo "$1"
+fi 
+else
+echo "Invalid code"
+fi
+}

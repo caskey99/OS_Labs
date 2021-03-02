@@ -1,0 +1,15 @@
+#!/bin/bash
+function exit_func () {
+if [ -n $1 ] && [ $1 -eq $1 ] 2>/dev/null
+then if [ -z "$1" ]
+then echo "0"
+else if [ $1 -eq 1 ] || [ $1 -eq 2 ] || [ $1 -eq 3 ] || [ $1 -eq 4 ] || [ $1 -eq 5 ] || [ $1 -eq 6 ] || [ $1 -eq 7 ] || [ $1 -eq 8 ] || [ $1 -eq 9 ]
+ then exit 1
+ else exit $1
+ fi
+fi
+else
+echo "Invalid code"
+exit code 2
+fi
+}

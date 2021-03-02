@@ -1,0 +1,17 @@
+$env:computername
+New-Item -Path 'C:\DESKTOP-T3QQ04V' -ItemType Directory
+New-Item -Path 'C:\DESKTOP-T3QQ04V\temp' -ItemType Directory
+net share tempshare=c:\DESKTOP-T3QQ04V\temp /users:1 /remark:"test"
+
+New-Item -Path 'C:\copywin.ps1'
+"Copy-Item -Path C:\Windows\apppatch\sysmain.sdb -Destination C:\DESKTOP-T3QQ04V\temp\"  | out-file -FilePath C:\copywin.ps1
+
+Set-ExecutionPolicy
+unrestricted
+while ($True){ .\copywin.ps1; Sleep 60}
+
+Get-Process
+Stop-Process -processname copywin
+
+Compare-Object -Referenceobject $(get-content C:\Windows\apppatch\sysmain.sdb) $(get-content C:\DESKTOP-T3QQ04V\temp\sysmain.sdb)
+.\copywin.ps1

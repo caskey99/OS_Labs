@@ -1,0 +1,56 @@
+#!/bin/bash
+HTrash=~/.trash
+TrashLog=~/.trash.log
+File=/home/user/Lab4/$1
+
+if [[ $# -ne 1 ]]
+   then
+       echo "Atg is not 1"
+       exit 1
+   fi
+if [[ ! -d "$HTrash" ]]
+   then
+       echo "dir .trash not exist"
+       exit 1
+   fi
+if [[ ! -f $TrashLog ]]
+   then
+       echo ".trash.log not exist"
+       exit 1
+   fi
+
+for i in $(grep -h $1 $HOME/.trash.log)
+    do
+       Fpath=$(echo $i | awk -F ":" '{print $1}')
+       id=$(echo  $i | awk -F ":" '{print $2}')
+       if [ $File == $Fpath ]
+          then
+              Frm=$HOME/.trash/$id
+              if [ -e $Frm ];
+                 then
+                     echo "You want to create a file - $Fpath ?"
+                     echo "Enter Y or N"
+                     read Ans
+                     if [[ $Ans == "Y" ]]
+                        then
+                            if [ -d $(dirname $Fpath) ]
+                               then
+                                   if [ -e $pathFile ]
+                                      then
+                                          echo "File exists!"
+                                          echo "Enter a new file Name :"
+                                          read NewName
+                                          ln "$Frm" "$(dirname $Fpath)/$NewName"
+                                      else
+                                          ln $Frm $Fpath
+                                      fi
+                                else
+                                    echo "Not exists!"
+                                    ln $Frm $HOME/$1
+                                fi
+                       fi
+            rm $Frm
+          
+    fi
+fi
+done

@@ -1,0 +1,17 @@
+Echo %computername%
+mkdir C:\DESKTOP-T3QQ04V\temp
+net share temp=C:\DESKTOP-T3QQ04V\temp
+
+cd C:\LAB6
+cd. > copywin.bat
+echo copy /z C:\Windows\apppatch\sysmain.sdb C:\DESKTOP-T3QQ04V\temp >> copywin.bat
+
+schtasks /create /sc minute /tn copywin /tr C:\LAB6\copywin.exe
+
+tasklist
+taskkill /im copywin.exe
+
+comp C:\Windows\apppatch\sysmain.sdb  C:\DESKTOP-T3QQ04V\temp\sysmain.sdb
+
+copy /z C:\Windows\apppatch\sysmain.sdb C:\DESKTOP-T3QQ04V\temp\sysmain.sdb
+comp C:\Windows\apppatch\sysmain.sdb  C:\DESKTOP-T3QQ04V\temp\sysmain.sdb

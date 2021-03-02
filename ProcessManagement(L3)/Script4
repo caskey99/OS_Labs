@@ -1,0 +1,17 @@
+#!/bin/bash
+
+pid="$1"
+
+while(true)
+do
+curr=$(top -b -n 1 | grep "$pid")
+curr=$(echo "$curr" | awk -v PID="$pid" '{ if($1 == PID) printf "%s %s\n", $4, $9 }')
+ni=$(echo "$curr" | awk '{ print $1 }')
+cpu=$(echo "$curr" | awk '{ print $2 }')
+max="10"
+if [[ 1 -eq "$(echo "${cpu} > ${max}" | bc)" ]]
+then
+ni=$(($ni+1))
+renice -n "$ni" -p "$pid"
+fi
+done

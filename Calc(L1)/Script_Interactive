@@ -1,0 +1,11 @@
+#!/bin/bash
+#2.9 INTERACTIVE
+function interactive_func {
+echo "a. calc
+b. search
+c. reverse
+d. strlen
+e. log
+f. exit
+g. help"
+}

@@ -1,0 +1,13 @@
+#!/bin/bash
+function strlen_func () {
+if [[ $# -eq 1 ]]
+then if [ -z "$1" ]
+     then echo "Error"
+     exit 2
+      else
+      echo ${#1}
+      fi
+ else
+ exit 1
+ fi
+}

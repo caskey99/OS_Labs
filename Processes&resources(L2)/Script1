@@ -1,0 +1,3 @@
+#!/bin/bash
+ps -f -u user | tail -n +2 | awk '{print $2 " : " $8}' > AnsScr1.tmp
+cat AnsScr1.tmp | wc -l >> AnsScr1.tmp

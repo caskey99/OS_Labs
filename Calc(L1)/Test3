@@ -1,0 +1,5 @@
+#!/bin/bash
+Yellow='\033[1;33m'
+a="${Yellow}'war"
+LS_COLORS=$LS_COLORS: 'Warning'
+export LS_COLORS

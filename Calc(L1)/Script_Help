@@ -1,0 +1,11 @@
+#!/bin/bash
+#2.8 HELP
+function help_func {
+echo "To use the calculator, enter cacl, then enter a matematical
+action (sum/sub/mul/div) and two numbers. To use Search, enter Search
+and  then enter the val and dir. To use Reverse, enter recerse command,
+then the first and second files.To use the strlen command, type strlen,
+then enter the string. To use the log command. To use the exit command,
+enter exit, then enter the key. To get Help using the app, enter help.
+To open the interactive menu, type interactive."
+}

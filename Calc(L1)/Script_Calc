@@ -1,0 +1,67 @@
+#!/bin/bash
+#2.2 CALC
+function calc_func () {
+if [[ "$#" -ne 3 ]]
+then exit 1
+else
+case "$1" in
+sum )
+if [ -n $2 ] && [ $2 -eq $2 ] 2>>/dev/null
+then if [ -n $3 ] && [ $3 -eq $3 ] 2>>/dev/null
+     then let answer1=$2+$3
+     echo "$answer1"
+      else echo "No num"
+           exit 2
+      fi
+ else echo "No num"
+ exit 2
+ fi
+;;
+sub )
+if [ -n $2 ] && [ $2 -eq $2 ] 2>>/dev/null
+then if [ -n $3 ] && [ $3 -eq $3 ] 2>>/dev/null
+     then let answer2=$2-$3
+     echo "$answer2"
+      else echo "No num"
+      exit 2
+      fi
+ else echo "No num"
+ exit 2
+ fi
+;;
+mul)
+if [ -n $2 ] && [ $2 -eq $2 ] 2>>/dev/null
+then if [ -n $3 ] && [ $3 -eq $3 ] 2>>/dev/null
+     then let answer3=$2*$3
+     echo "$answer3"
+      else echo "No num"
+      exit 2
+      fi
+ else echo "No num"
+ exit 2
+ fi
+;;
+div )
+if [ -n $2 ] && [ $2 -eq $2 ] 2>>/dev/null
+then if [ -n $3 ] && [ $3 -eq $3 ] 2>>/dev/null
+     then if [ $3 -eq 0 ] || [ $3 -eq +0 ] || [ $3 -eq -0 ]
+          then echo "Error, div 0"
+          exit 2
+           else let answer4=$2/$3
+                echo "$answer4"
+           fi
+      else echo "No num"
+      exit 2
+      fi
+ else echo "No num"
+ exit 2
+ fi
+;;
+* )
+echo "Error, invalid comand in the calculator!"
+echo "Enter one of the arguments : sum/sub/mul/div"
+exit 2
+;;
+esac
+fi
+}

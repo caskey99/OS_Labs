@@ -1,0 +1,25 @@
+#!/bin/bash
+N_PPID="0"
+M_AVG="0"
+ART_SUM="0"
+echo -e "$(<AnsScr4.tmp)\n)" | sed "s/[^0-9.]\+/ /g" | sed "s/^ //g" | while read s
+do
+    pid=$(awk '{print $1}' <<< $s)
+    ppid=$(awk '{print $2}' <<< $s)
+    ART=$(awk '{print $3}' <<< $s)
+    if [[ $ppid = $N_PPID ]]
+    then
+        ART_SUM=$(echo "$ART_SUM+$ART" | bc )
+        Counter=$(($Counter+1))
+    else
+        M_AVG=$(echo "scale=3; $ART_SUM/$Counter" | bc )
+        echo "Average_Children_Running_Time_of_ParentID="$N_PPID" is "$M_AVG
+        ART_SUM=$ART
+        Counter=1
+        N_PPID=$ppid
+    fi
+    if [[ ! -z $pid ]]
+        then
+            echo "ProcessID="$pid" : Paret_ProcesID="$ppid" : Average_Running_Time="$ART
+        fi
+done > AnsScr5.tmp

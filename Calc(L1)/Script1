@@ -1,0 +1,66 @@
+#!/bin/bash
+. ./Script_Calc
+. ./Script_Search
+. ./Script_Reverse
+. ./Script_Strlen
+. ./Script_Log
+. ./Script_Exit
+. ./Script_Help
+. ./Script_Interactive
+#2.2 CALC
+case "$1" in
+calc ) calc_func "$2" "$3" "$4";;
+search ) search_func "$2" "$3" ;;
+reverse ) reverse_func "$2" "$3" ;;
+strlen ) strlen_func "$2" ;;
+log ) log_func ;;
+exit ) exit_func "$2" ;;
+help ) help_func ;;
+interactive ) interactive_func
+read num
+case $num in
+
+a )
+echo "Mathematic operation (sum/sub/mul/div) : "
+read arg
+echo "First num :"
+read num1
+echo "Second num :"
+read num2
+echo "answer : "
+calc_func "$arg" "$num1" "$num2";;
+
+b )
+echo  "Write val"
+read reg
+echo "Write dir"
+read dir
+search_func "$reg" "$dir";;
+
+c )
+echo "Write a File read and File write"
+read File1
+read File2
+reverse_func "$File1" "$File2";;
+
+d )
+echo "Write a str"
+read str
+strlen_func "$str";;
+e )
+echo "full.log"
+log_func;;
+f )
+echo "Write the exit code"
+read code
+exit_func "$code";;
+g )
+echo "Help inf :"
+help_func;;
+esac
+;;
+* )
+echo "Error, invalid command!"
+help_func
+;;
+esac

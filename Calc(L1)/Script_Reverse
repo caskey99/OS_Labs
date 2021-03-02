@@ -1,0 +1,23 @@
+#!/bin/bash
+#2.4 REVERSE
+function reverse_func () {
+if [[ $# -eq 2 ]]
+then if [[ -e $1 ]]
+     then if [[ -r $1 ]]
+          then if ( >> "$2" ) 2> /dev/null
+               then temp="$(tac $1)" 2> /dev/null
+                    echo "$temp" | rev > $2
+                    exit 0
+                else
+                exit 5
+                fi
+          else
+          exit 4
+          fi
+     else
+     exit 3
+     fi
+ else
+ exit 2
+ fi
+}

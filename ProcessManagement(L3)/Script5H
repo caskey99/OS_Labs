@@ -1,0 +1,42 @@
+#!/bin/bash
+
+char="+"
+res=1
+(tail -f temp) |
+while true; do
+        read line;
+        case $line in
+                   "QUIT")
+                           echo "Exit"
+                           killall tail
+                           killall Script5H
+                           exit
+                   ;;
+                   "+")
+                       char="+"
+                       ;;
+                   "*")
+                       char="*"
+                       ;;
+                   [0-9]*)
+                          case $char in
+                                     "+")
+                                          let res=$res+$line
+                                          echo "Sum Res = $res"
+                                          ;;
+                                     "*")
+                                          let res=$res*$line
+                                          echo "Mul Res = $res"
+                                          ;;
+                          esac
+                          ;;
+                   *)
+                          echo "Error"
+                          killall tail
+                          killall Script5
+                          exit
+                          ;;
+
+esac
+
+done

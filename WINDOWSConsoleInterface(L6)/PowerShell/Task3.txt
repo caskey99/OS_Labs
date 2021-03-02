@@ -1,0 +1,13 @@
+New-Item -Path 'C:\LAB6\servlist.txt' -ItemType File
+Get-Service > C:\LAB6\servlist.txt
+
+New-Item -Path 'C:\stopdns.ps1'
+"Stop-Service Spooler" | out-file -FilePath C:\stopdns.ps1
+"Start-Sleep -Seconds 5" >> C:\stopdns.ps1
+"New-Item -Path 'C:\LAB6\currservice.txt' -ItemType File" >> C:\stopdns.ps1
+"Get-Service > C:\LAB6\currservice.txt" >> C:\stopdns.ps1
+
+New-Item -Path 'C:\compserv.ps1'
+"Compare-Object -Referenceobject $(get-content C:\LAB6\servlist.txt) $(get-content C:\LAB6\currservice.txt)" | out-file -FilePath C:\compserv.ps1
+".\compserv.ps1" >> C:\stopdns.ps1
+"Start-Service Spooler" >> C:\stopdns.ps1

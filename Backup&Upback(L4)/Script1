@@ -1,0 +1,21 @@
+#!/bin/bash
+Name=$1
+HTrash=$HOME/.trash
+HLog=$HOME/trash.log
+
+if [ $# -ne 1 ]
+   then
+       exit 1
+   fi
+if [ ! -d $HTrash ]
+   then
+       mkdir $HTrash
+   fi
+CurrFTrash=$(date +%s)
+ln $Name "$HTrash/$CurrFTrash"
+rm $Name
+if [ ! -e $HLog ]
+   then
+       touch $HLog
+   fi
+echo "$PWD/$Name:$CurrFTrash" >> $HLog
